@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarRentalManagement.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class fixdb : Migration
+    public partial class newdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,6 +77,8 @@ namespace CarRentalManagement.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DrivingLicense = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -299,6 +301,7 @@ namespace CarRentalManagement.Server.Migrations
                     MakeId = table.Column<int>(type: "int", nullable: false),
                     modelId = table.Column<int>(type: "int", nullable: false),
                     ColourId = table.Column<int>(type: "int", nullable: false),
+                    RentalRate = table.Column<double>(type: "float", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -360,13 +363,52 @@ namespace CarRentalManagement.Server.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "ad2bcf0c-20db-474f-8407-5a6b159518ba", null, "Administrator", "ADMINISTRATOR" },
+                    { "bd2bcf0c-20db-474f-8407-5a6b159518bb", null, "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "b33ca748-57ca-44a9-a79b-0b63135c297f", "admin@localhost.com", false, "Admin", "User", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEKJI1JQyW5uaLFsl7iCoD3i0+bb369KbJ4o4XsFzgFmQCHUsRHYNOx28XhhbXgVc0g==", null, false, "e9aab5da-12c1-4992-930e-cf614274b5c8", false, "admin@localhost.com" });
+
+            migrationBuilder.InsertData(
                 table: "Colours",
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Name", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2023, 11, 28, 11, 56, 30, 480, DateTimeKind.Local).AddTicks(6673), new DateTime(2023, 11, 28, 11, 56, 30, 480, DateTimeKind.Local).AddTicks(6685), "Black", "System" },
-                    { 2, "System", new DateTime(2023, 11, 28, 11, 56, 30, 480, DateTimeKind.Local).AddTicks(6689), new DateTime(2023, 11, 28, 11, 56, 30, 480, DateTimeKind.Local).AddTicks(6690), "Blue", "System" }
+                    { 1, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4490), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4501), "Black", "System" },
+                    { 2, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4503), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4504), "Blue", "System" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Makes",
+                columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Name", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4758), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4759), "BMW", "System" },
+                    { 2, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4760), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4761), "Toyota", "System" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Models",
+                columns: new[] { "Id", "CreatedBy", "DateCreated", "DateUpdated", "Name", "UpdatedBy" },
+                values: new object[,]
+                {
+                    { 1, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4903), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4904), "3 Series", "System" },
+                    { 2, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4905), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4906), "X5", "System" },
+                    { 3, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4907), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4907), "Prius", "System" },
+                    { 4, "System", new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4908), new DateTime(2024, 1, 9, 10, 47, 26, 332, DateTimeKind.Local).AddTicks(4908), "Rav4", "System" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "3781efa7-66dc-47f0-860f-e506d04102e4" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
